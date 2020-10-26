@@ -1,0 +1,25 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# Python
+# virtualenv folder
+.virtualenv
+.venv
+.env
+bin/
+
+# build
+build
+dist
+
+*.egg-info/
+__pycache__
+# Unit test / coverage reports
+.coverage
