@@ -1,12 +1,20 @@
 import React from 'react';
 import { Project } from "../models";
 
-export const ListItem: React.FC<Project> = ({id, name, location }) => {
+interface IListItem {
+  project: Project,
+
+  onSelect(projectId: number): void
+}
+
+export const ListItem: React.FC<IListItem> = ({project, onSelect}) => {
   return (
-    <li key={id} style={{'margin': '0 0 5px 0'}}>
+    <li key={project.id}
+        style={{'margin': '0 0 5px 0', 'cursor': 'pointer'}}
+        onClick={() => onSelect(project.id)}>
         <div className='box has-background-light'>
-          <h1 className="title">{name}</h1>
-          <h2 className="subtitle">{location}</h2>
+          <h1 className="title">{project.name}</h1>
+          <h2 className="subtitle">{project.location}</h2>
         </div>
     </li>
   );

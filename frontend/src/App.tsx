@@ -30,9 +30,10 @@ const App: React.FC = () => {
     getProjects();
   }, [])
 
-  const listElements = projects.map((project) => <ListItem id={project.id}
-                                                           name={project.name}
-                                                           location={project.location}/>);
+  const listElements = projects.map((project) => <ListItem project={project}
+                                                           onSelect={(id) => {
+                                                             console.log('Selected project ID:', id)
+                                                           }}/>);
 
   return (
     <div className="section">
