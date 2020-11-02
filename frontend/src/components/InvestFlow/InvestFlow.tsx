@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Project } from "../../models";
 import * as jsonResponse from "../../api_response.json";
 import { ListItem } from "../ListItem";
-import { Step } from "../Step";
+import { StepLayout } from "../StepLayout";
 
 
 export const InvestFlow: React.FC = () => {
@@ -37,8 +37,8 @@ export const InvestFlow: React.FC = () => {
                                                              console.log('Selected project ID:', id)
                                                            }}/>);
   return (
-    <Step number={1}
-          subtitle={'Select the project you want to invest in'}>
+    <StepLayout number={1}
+                subtitle={'Select the project you want to invest in'}>
       {status === 'loading' && (
         <button className={'button is-loading is-large is-fullwidth'}
                 style={{'border': 'none'}}>
@@ -51,6 +51,6 @@ export const InvestFlow: React.FC = () => {
         </ul>
       )
       }
-    </Step>
+    </StepLayout>
   );
 }

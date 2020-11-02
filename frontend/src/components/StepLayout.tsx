@@ -6,7 +6,7 @@ interface IStep {
   subtitle: string,
 }
 
-export const Step: React.FC<IStep> = ({children, number, subtitle = ''}) => {
+export const StepLayout: React.FC<IStep> = ({children, number, subtitle = ''}) => {
   return (
     <div className='box'>
       <h1 className='title is-1 has-text-centered'>Step {number}</h1>
