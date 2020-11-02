@@ -1,6 +1,8 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { StepLayout } from "../StepLayout";
 import { User } from "../../models";
+import { EmailInput } from "../form/EmailInput";
+import { NumberInput } from "../form/NumberInput";
 
 
 interface ICollectUserDataStep {
@@ -14,22 +16,6 @@ interface ICollectUserDataStep {
 export const CollectUserDataStep: React.FC<ICollectUserDataStep> = ({onContinue, onBack, user}) => {
   const [email, setEmail] = useState<string>(user.email);
   const [amount, setAmount] = useState<number>(user.amount);
-
-  const onChangeEmail = (ev: ChangeEvent<HTMLInputElement>) => {
-    console.log('email valid', ev.target.validity.valid)
-    setEmail(ev.target.value)
-    //TODO: show validation errors
-  }
-
-  const onChangeAmount = (ev: ChangeEvent<HTMLInputElement>) => {
-    console.log('amount valid', ev.target.validity.valid)
-    try {
-      setAmount(Number(ev.target.value));
-    } catch (e) {
-      console.error(e)
-      //TODO: show validation errors
-    }
-  }
 
   const onSubmit = (event: MouseEvent | FormEvent) => {
     event.preventDefault();
@@ -46,31 +32,12 @@ export const CollectUserDataStep: React.FC<ICollectUserDataStep> = ({onContinue,
       <form onSubmit={onSubmit}>
         <div className={'field'}>
           <label className={'label'}>
-            <div className={'control'}>
-              <input
-                className={'input'}
-                type="email"
-                name="email"
-                value={email}
-                placeholder={'Your email address'}
-                onChange={onChangeEmail}
-              />
-            </div>
+            <EmailInput value={email} onChange={(e) => setEmail(e)}/>
           </label>
           <div className={'field is-horizontal'}>
             <div className={'field-body'}>
               <div className={'field'}>
-                <div className={'control'}>
-                  <input
-                    className={'input'}
-                    type="number"
-                    min={200000}
-                    name="amount"
-                    value={amount || ''}
-                    placeholder={'Investment Amount'}
-                    onChange={onChangeAmount}
-                  />
-                </div>
+                <NumberInput value={amount} onChange={(a) => setAmount(a)}/>
               </div>
             </div>
             <div className={'field-label is-medium'}>
