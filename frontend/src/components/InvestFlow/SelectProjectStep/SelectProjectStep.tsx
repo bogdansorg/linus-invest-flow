@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Project } from "../../../models";
 import * as jsonResponse from "../../../api_response.json";
-import { ListItem } from "../../ListItem";
+import { ListItem } from "./ListItem";
 import { StepLayout } from "../../StepLayout";
 
-export const SelectProjectStep: React.FC = () => {
+interface ISelectProjectStep {
+  onContinue(data: Project): void;
+}
+
+export const SelectProjectStep: React.FC<ISelectProjectStep> = ({onContinue}) => {
   const [projects, setProjects] = useState<Project[]>([] as Project[]);
   const [status, setStatus] = useState('idle');
 
@@ -30,11 +34,14 @@ export const SelectProjectStep: React.FC = () => {
     getProjects();
   }, [])
 
+  const selectProject = (id: number) => {
+    const selected = projects.find((p) => p.id === id) as Project;
+    onContinue(selected);
+  }
+
   const listElements = projects.map((project) => <ListItem key={project.id}
                                                            project={project}
-                                                           onSelect={(id) => {
-                                                             console.log('Selected project ID:', id)
-                                                           }}/>);
+                                                           onSelect={selectProject}/>);
   return (
     <StepLayout number={1}
                 subtitle={'Select the project you want to invest in'}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Project } from "../models";
+import { Project } from "../../../models";
 
 interface IListItem {
   project: Project,
