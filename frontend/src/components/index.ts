@@ -1,1 +1,1 @@
-export { Step } from './Step';
+export { InvestFlow } from './InvestFlow/InvestFlow';
