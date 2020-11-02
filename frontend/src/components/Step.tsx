@@ -2,11 +2,18 @@ import React from "react";
 
 
 interface IStep {
-  step: number
+  number: number,
+  subtitle: string,
 }
 
-export const Step: React.FC<IStep> = ({step}) => {
+export const Step: React.FC<IStep> = ({children, number, subtitle = ''}) => {
   return (
-    <h1 className='title is-1 has-text-centered'>Step {step}</h1>
+    <div className='box'>
+      <h1 className='title is-1 has-text-centered'>Step {number}</h1>
+      <h3 className='subtitle is-3 has-text-centered'>{subtitle}</h3>
+      <div className='block'>
+        {children}
+      </div>
+    </div>
   )
 };

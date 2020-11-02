@@ -9,8 +9,7 @@ interface IListItem {
 
 export const ListItem: React.FC<IListItem> = ({project, onSelect}) => {
   return (
-    <li key={project.id}
-        style={{'margin': '0 0 5px 0', 'cursor': 'pointer'}}
+    <li style={{'margin': '0 0 5px 0', 'cursor': 'pointer'}}
         onClick={() => onSelect(project.id)}>
         <div className='box has-background-light'>
           <h1 className="title">{project.name}</h1>

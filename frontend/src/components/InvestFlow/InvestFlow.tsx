@@ -31,16 +31,14 @@ export const InvestFlow: React.FC = () => {
     getProjects();
   }, [])
 
-  const listElements = projects.map((project) => <ListItem project={project}
+  const listElements = projects.map((project) => <ListItem key={project.id}
+                                                           project={project}
                                                            onSelect={(id) => {
                                                              console.log('Selected project ID:', id)
                                                            }}/>);
-  return (<div className='box'>
-    <Step step={1}/>
-    <h3 className='title is-3 has-text-centered'>
-      Select the project you want to invest in
-    </h3>
-    <div className='block'>
+  return (
+    <Step number={1}
+          subtitle={'Select the project you want to invest in'}>
       {status === 'loading' && (
         <button className={'button is-loading is-large is-fullwidth'}
                 style={{'border': 'none'}}>
@@ -53,6 +51,6 @@ export const InvestFlow: React.FC = () => {
         </ul>
       )
       }
-    </div>
-  </div>);
+    </Step>
+  );
 }
