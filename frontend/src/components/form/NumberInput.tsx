@@ -1,20 +1,25 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 
 export interface INumberInput {
   value: number;
 
-  onChange(amount: number): void;
+  onChange(amount: number, valid: boolean): void;
 }
 
 export const NumberInput: React.FC<INumberInput> = ({value, onChange}) => {
+  const [requiredError, setRequiredErr] = useState<boolean>()
+  const [minAmountError, setMinAmountErr] = useState<boolean>()
+  const [numberError, setNumberErr] = useState<boolean>()
+
   const onChangeNumber = (ev: ChangeEvent<HTMLInputElement>) => {
-    console.log('amount valid', ev.target.validity.valid)
-    try {
-      onChange(Number(ev.target.value));
-    } catch (e) {
-      console.error(e)
-      //TODO: show validation errors
-    }
+    const validity = ev.target.validity;
+    const value = Number(ev.target.value);
+
+    setNumberErr(isNaN(value))
+    setMinAmountErr(validity.rangeUnderflow);
+    setRequiredErr(validity.valueMissing);
+
+    onChange(value, validity.valid);
   }
 
   return (
@@ -23,11 +28,24 @@ export const NumberInput: React.FC<INumberInput> = ({value, onChange}) => {
         className={'input'}
         type="number"
         min={200000}
+        required={true}
         name="amount"
         value={value || ''}
         placeholder={'Investment Amount'}
         onChange={onChangeNumber}
       />
+      {requiredError && (
+        <p className="help is-danger">An investment amount is required</p>
+      )
+      }
+      {minAmountError && (
+        <p className="help is-danger">The minimum investment amount is 200.000</p>
+      )
+      }
+      {numberError && (
+        <p className="help is-danger">Please type a valid number</p>
+      )
+      }
     </div>
   )
 }
