@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 
 export interface INumberInput {
   value: number;
@@ -10,6 +10,14 @@ export const NumberInput: React.FC<INumberInput> = ({value, onChange}) => {
   const [requiredError, setRequiredErr] = useState<boolean>()
   const [minAmountError, setMinAmountErr] = useState<boolean>()
   const [numberError, setNumberErr] = useState<boolean>()
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      onChange(value, inputRef.current.validity.valid);
+    }
+  }, [])  // this will run only once when the component is initialized
 
   const onChangeNumber = (ev: ChangeEvent<HTMLInputElement>) => {
     const validity = ev.target.validity;
@@ -25,6 +33,7 @@ export const NumberInput: React.FC<INumberInput> = ({value, onChange}) => {
   return (
     <div className={'control'}>
       <input
+        ref={inputRef}
         className={'input'}
         type="number"
         min={200000}

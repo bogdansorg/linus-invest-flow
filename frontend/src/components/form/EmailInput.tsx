@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useEffect, useRef } from "react";
 
 export interface IEmailInput {
   value: string;
@@ -9,6 +9,14 @@ export interface IEmailInput {
 export const EmailInput: React.FC<IEmailInput> = ({value, onChange}) => {
   const [requiredError, setRequiredErr] = useState<boolean>()
   const [patternError, setPatternErr] = useState<boolean>()
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      onChange(value, inputRef.current.validity.valid);
+    }
+  }, [])  // this will run only once when the component is initialized
 
   const onChangeEmail = (ev: ChangeEvent<HTMLInputElement>) => {
     const validity = ev.target.validity;
@@ -21,6 +29,7 @@ export const EmailInput: React.FC<IEmailInput> = ({value, onChange}) => {
   return (
     <div className={'control'}>
       <input
+        ref={inputRef}
         className={'input'}
         type="email"
         name="email"
