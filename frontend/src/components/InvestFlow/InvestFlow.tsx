@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { SelectProjectStep } from "./SelectProjectStep/SelectProjectStep";
 import { Project, User } from "../../models";
 import { CollectUserDataStep } from "./CollectUserDataStep";
+import { ConfirmationStep } from "./ConfirmationStep/ConfirmationStep";
 
+
+const initialProjectState = {id: 0, name: '', location: ''};
+const initialUserState = {email: '', amount: 0};
 
 export const InvestFlow: React.FC = () => {
   const [stepIndex, setStep] = useState(1);
-  const [selectedProject, setProject] = useState<Project>();
-  const [user, setUser] = useState<User>({email: '', amount: 0});
+  const [selectedProject, setProject] = useState<Project>(initialProjectState);
+  const [user, setUser] = useState<User>(initialUserState);
 
   const firstStep = <SelectProjectStep
     onContinue={(project) => {
@@ -29,9 +33,15 @@ export const InvestFlow: React.FC = () => {
           setUser(user);
         }}
         onBack={() => {
-          setUser({email: '', amount: 0});
+          setUser(initialUserState);
           setStep(1);
         }}/>;
+      break;
+
+    case 3:
+      currentStep = <ConfirmationStep user={user}
+                                      project={selectedProject}
+                                      onBack={() => setStep(2)}/>
       break;
 
     default:
@@ -40,7 +50,7 @@ export const InvestFlow: React.FC = () => {
   }
 
   return (<>
-    {currentStep}
+      {currentStep}
     </>
   )
 }
