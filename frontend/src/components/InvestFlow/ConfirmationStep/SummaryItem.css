@@ -1,0 +1,11 @@
+.name {
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+}
+
+.value {
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+}

@@ -3,3 +3,9 @@ export interface Project {
   name: string,
   location: string
 }
+
+
+export interface User {
+  email: string,
+  amount: number,
+}
