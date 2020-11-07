@@ -16,7 +16,7 @@ export const EmailInput: React.FC<IEmailInput> = ({value, onChange}) => {
     if (inputRef.current) {
       onChange(value, inputRef.current.validity.valid);
     }
-  }, [])  // this will run only once when the component is initialized
+  })  // this will run only once when the component is initialized
 
   const onChangeEmail = (ev: ChangeEvent<HTMLInputElement>) => {
     const validity = ev.target.validity;

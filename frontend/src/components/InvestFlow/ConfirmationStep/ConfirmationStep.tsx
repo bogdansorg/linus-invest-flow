@@ -57,7 +57,7 @@ export const ConfirmationStep: React.FC<IConfirmationStep> = ({onBack, user, pro
                 type="submit"
                 disabled={!termsAccepted || status === 'submitted'}
                 onClick={onSubmit}>
-          Continue
+          Invest
         </button>
       </div>
     </StepLayout>
