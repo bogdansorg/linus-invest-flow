@@ -1,15 +1,15 @@
-# Python project starter 
+# Linus invest full-stack code challenge
 
-Python 3.7 based project. Uses pre-commit hooks to lint (flake8) and autoformat (black) the code. 
-Requires docstrings for everything.
-
-Fork this project and start developing.
+### Notes
+* assumes SQLite is installed an running on the host OS.
+* uses Python for the backend code
+* uses React+Typescript for the frontend part
 
 ## Install
 
 - clone repository
 - move to project dir: `cd ./<project_folder>`
-- depending on OS make sure you're using the Python 3.7 
+- depending on OS make sure you're using the Python 3.7
 - install or upgrade `pip` to latest version
 
 `python3 -m pip install --user --upgrade pip`
@@ -30,6 +30,12 @@ Fork this project and start developing.
 
 `pip install poetry` 
 
+## Install
+* for development:
+```
+make dev
+```
+
 ## Lint
 Activate virtual environment `source .env/bin/activate`.
 
@@ -48,11 +54,19 @@ Run with:
 make test
 ```
 ## Run
+Activate virtual environment `source .env/bin/activate`.
 
 Run in development mode:
 
 ```
 make run
 ```
+#### React dev server
 
-ADD MORE INFO AS NECESSARY
+**Setup**
+1. go to `frontend/` folder
+2. run `make install`
+3. start the app in the development mode `make run-react`
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
