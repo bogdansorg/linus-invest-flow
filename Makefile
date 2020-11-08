@@ -53,3 +53,6 @@ install: ensure-poetry clean
 
 run: ensure-poetry clean
 	poetry run <add_run_command_for_project>
+
+run-react:
+	npm run start --prefix ./frontend
