@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Project } from "../../../models";
-import * as jsonResponse from "../../../api_response.json";
+import * as jsonResponse from "../../../mocks/api_response.json";
 import { ListItem } from "./ListItem";
 import { StepLayout } from "../../StepLayout";
 
@@ -13,9 +13,10 @@ export const SelectProjectStep: React.FC<ISelectProjectStep> = ({onContinue}) =>
   const [status, setStatus] = useState('idle');
 
   useEffect(() => {
+    let isMounted = true;
     setStatus('loading');
     const getProjects = async () => {
-      const url = `https://fullstack.linus-capital.com/projects`;
+      const url = `https://fullstack.linus-capital.com/projects`;  // TODO move to config
       try {
         const response = await fetch(url, {
           headers: {
@@ -23,15 +24,19 @@ export const SelectProjectStep: React.FC<ISelectProjectStep> = ({onContinue}) =>
           },
         });
         const data = await response.json();
-        setProjects(data.projects as Project[]);
+        if (isMounted) setProjects(data.projects as Project[]);
       } catch (e) {
         console.error(e);
-        setProjects(jsonResponse.projects as Project[]);
+        if (isMounted) setProjects(jsonResponse.projects as Project[]);
+        //  TODO introduce status "failed" and stop rendering mock data, but a failure message instead
       } finally {
-        setStatus('resolved');
+        if (isMounted) setStatus('resolved');
       }
     };
     getProjects();
+    return () => {
+      isMounted = false;
+    }
   }, [])
 
   const selectProject = (id: number) => {
@@ -47,7 +52,8 @@ export const SelectProjectStep: React.FC<ISelectProjectStep> = ({onContinue}) =>
                 subtitle={'Select the project you want to invest in'}>
       {status === 'loading' && (
         <button className={'button is-loading is-large is-fullwidth'}
-                style={{'border': 'none'}}>
+                style={{'border': 'none'}}
+                data-testid={'loading-button'}>
         </button>
       )
       }

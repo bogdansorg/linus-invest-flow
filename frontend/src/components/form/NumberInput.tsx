@@ -17,7 +17,7 @@ export const NumberInput: React.FC<INumberInput> = ({value, onChange}) => {
     if (inputRef.current) {
       onChange(value, inputRef.current.validity.valid);
     }
-  }, [])  // this will run only once when the component is initialized
+  })  // this will run only once when the component is initialized
 
   const onChangeNumber = (ev: ChangeEvent<HTMLInputElement>) => {
     const validity = ev.target.validity;

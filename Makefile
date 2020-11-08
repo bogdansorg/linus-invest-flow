@@ -24,17 +24,17 @@ ensure-poetry:
 	fi
 
 mypy: ensure-poetry
-	poetry run mypy --strict <add_project_folder_here>
+	poetry run mypy --strict backend
 
 lint: ensure-poetry mypy
 	poetry check
-	poetry run flake8 <add_project_folder_here> tests/
+	poetry run flake8 backend/ tests/
 
 autoformat: ensure-poetry lint
-	poetry run black <add_project_folder_here> tests
+	poetry run black backend/ tests/
 
 test: ensure-poetry lint
-	poetry run pytest --cov <add_project_folder_here>/ --strict tests
+	poetry run pytest --cov backend/ --strict tests
 
 clean:
 	find . -name '*.pyc' -delete
@@ -52,4 +52,7 @@ install: ensure-poetry clean
 	poetry install --no-dev
 
 run: ensure-poetry clean
-	poetry run <add_run_command_for_project>
+	poetry run uvicorn backend.app:app --reload
+
+run-react:
+	npm run start --prefix ./frontend

@@ -12,8 +12,9 @@ interface IConfirmationStep {
 }
 
 interface Data {
-  user: User;
-  project: Project;
+  email: string;
+  amount: number;
+  project_id: number;
 }
 
 export const ConfirmationStep: React.FC<IConfirmationStep> = ({onBack, user, project}) => {
@@ -23,7 +24,7 @@ export const ConfirmationStep: React.FC<IConfirmationStep> = ({onBack, user, pro
   const onSubmit = (event: MouseEvent | FormEvent) => {
     setSubmitStatus('sending');
     const sendToBackend = async (data: Data) => {
-      const url = 'http://localhost:8000/invest';
+      const url = 'http://localhost:8000/investments/';
       const response = await fetch(url, {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
@@ -31,7 +32,7 @@ export const ConfirmationStep: React.FC<IConfirmationStep> = ({onBack, user, pro
       })
       if (!response.ok) console.error(response.statusText);
     };
-    sendToBackend({user: user, project: project})
+    sendToBackend({email: user.email, amount: user.amount, project_id: project.id} as Data)
     setSubmitStatus('submitted');
   }
 
@@ -57,7 +58,7 @@ export const ConfirmationStep: React.FC<IConfirmationStep> = ({onBack, user, pro
                 type="submit"
                 disabled={!termsAccepted || status === 'submitted'}
                 onClick={onSubmit}>
-          Continue
+          Invest
         </button>
       </div>
     </StepLayout>
