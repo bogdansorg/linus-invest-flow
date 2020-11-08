@@ -12,8 +12,9 @@ interface IConfirmationStep {
 }
 
 interface Data {
-  user: User;
-  project: Project;
+  email: string;
+  amount: number;
+  project_id: number;
 }
 
 export const ConfirmationStep: React.FC<IConfirmationStep> = ({onBack, user, project}) => {
@@ -31,7 +32,7 @@ export const ConfirmationStep: React.FC<IConfirmationStep> = ({onBack, user, pro
       })
       if (!response.ok) console.error(response.statusText);
     };
-    sendToBackend({user: user, project: project})
+    sendToBackend({email: user.email, amount: user.amount, project_id: project.id} as Data)
     setSubmitStatus('submitted');
   }
 

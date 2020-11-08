@@ -1,5 +1,5 @@
 """Services to interact with the data store."""
-from sqlalchemy.orm import Session
+from backend.store import Session
 
 from backend.store.models import Investment
 
@@ -10,6 +10,8 @@ class InvestmentService:
     def __init__(self, session: Session):
         self.session = session
 
-    def save(self, investment: Investment):
+    def save(self, investment: Investment) -> int:
         self.session.add(investment)
+        self.session.flush()
         self.session.commit()
+        return investment.id
