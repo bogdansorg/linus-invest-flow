@@ -24,7 +24,7 @@ export const ConfirmationStep: React.FC<IConfirmationStep> = ({onBack, user, pro
   const onSubmit = (event: MouseEvent | FormEvent) => {
     setSubmitStatus('sending');
     const sendToBackend = async (data: Data) => {
-      const url = 'http://localhost:8000/invest';
+      const url = 'http://localhost:8000/investments/';
       const response = await fetch(url, {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
